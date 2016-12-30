@@ -1,0 +1,1 @@
+<a href="{{ url('categorie/produits/'.$categorie->id) }}">afficher les produits</a>
