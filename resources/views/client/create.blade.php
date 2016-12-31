@@ -10,10 +10,14 @@
 
 {!! Form::open(array('route' => 'client.store', 'method' => 'POST')) !!}
 <ul>
-    <li>
+    <div class="input-field col s6">
+        <i class="material-icons prefix">account_circle</i>
+
+        <li>
         {!! Form::label('Nom', 'Nom:') !!}
         {!! Form::text('Nom') !!}
     </li>
+    </div>
     <li>
         {!! Form::label('Prenom', 'Prenom:') !!}
         {!! Form::text('Prenom') !!}
