@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
+use App\Evaluation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class EvaluationController extends Controller {
 
   /**
@@ -11,7 +16,10 @@ class EvaluationController extends Controller {
    */
   public function index()
   {
-    
+      $evaluation=Evaluation::all();
+      return view('evaluation.index')->with('evaluation',$evaluation);
+
+
   }
 
   /**
@@ -21,6 +29,14 @@ class EvaluationController extends Controller {
    */
   public function create()
   {
+      if(Auth::check()){
+
+              return view('evaluation.create');
+          }else
+          {
+              return redirect("home");
+          }
+
     
   }
 
@@ -29,9 +45,13 @@ class EvaluationController extends Controller {
    *
    * @return Response
    */
-  public function store()
+  public function store(Request $request)
   {
-    
+      $eval= $request->all();
+      $evaluation=new Evaluation($eval);
+
+      $evaluation->user=Auth::user()->id;
+      $evaluation->save();
   }
 
   /**
@@ -53,6 +73,22 @@ class EvaluationController extends Controller {
    */
   public function edit($id)
   {
+      if(Auth::check()){
+
+          if (Auth::user()->role==1) {
+              $evaluation = Evaluation::findOrFail($id)->first();
+              $client=Client::where('mail','like',Auth::user()->email)->first();
+
+              return view('evaluation.edit')->with('evaluation',$evaluation);
+
+
+
+
+
+          }
+      }else{
+          return redirect('login');
+      }
     
   }
 
@@ -62,9 +98,11 @@ class EvaluationController extends Controller {
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update($id, Request $request)
   {
-    
+      $evaluation=Evaluation::findOrFail($id)->update($request->all());
+      return back();
+
   }
 
   /**
@@ -75,7 +113,9 @@ class EvaluationController extends Controller {
    */
   public function destroy($id)
   {
-    
+      $evaluation=Evaluation::findOrFail($id);
+      $evaluation->delete();
+      return back();
   }
   
 }

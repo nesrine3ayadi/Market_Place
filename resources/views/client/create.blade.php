@@ -1,23 +1,12 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: ghdj9
- * Date: 20/12/2016
- * Time: 11:03
- */
 
-?>
 
 {!! Form::open(array('route' => 'client.store', 'method' => 'POST')) !!}
 <ul>
-    <div class="input-field col s6">
-        <i class="material-icons prefix">account_circle</i>
 
         <li>
         {!! Form::label('Nom', 'Nom:') !!}
         {!! Form::text('Nom') !!}
     </li>
-    </div>
     <li>
         {!! Form::label('Prenom', 'Prenom:') !!}
         {!! Form::text('Prenom') !!}

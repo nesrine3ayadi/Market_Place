@@ -1,7 +1,16 @@
 <p>
 Votre panier : {{ session('somme') }}
 </p>
+<!--  SEARCH -->
 @foreach ($produit as $p)
+
+{!! Form::open(array('route' => ['search',$p->nom], 'method' => 'POST')) !!}
+
+    <input type="text" name="search" placeholder="search">
+
+{!! Form::close() !!}
+
+
 
     {{ $p->nom }}
     @if(Auth::check())

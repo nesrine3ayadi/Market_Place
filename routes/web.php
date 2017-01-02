@@ -35,4 +35,5 @@ Route::get('/home', 'HomeController@index');
 Route::get('/boutique/produits/{id}','ProduitController@liste_par_boutique');
 Route::get('/categorie/produits/{id}','ProduitController@liste_par_categorie');
 Route::post('/commande/produits/{id}','CommandeController@ajout_panier')->name('ajouter');
+Route::post('/search/{id}','ProduitController@search')->name('search');
 

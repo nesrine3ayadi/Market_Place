@@ -1,6 +1,6 @@
 <?php
 
-namespace Paiement;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,6 +8,7 @@ class Paiement extends Model {
 
 	protected $table = 'Paiement';
 	public $timestamps = true;
+	protected $fillable=['num_transaction'];
 
 	public function lier()
 	{
