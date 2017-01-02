@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Commande;
 use App\Paiement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,16 +53,15 @@ class PaiementController extends Controller {
   {
       $pai= $request->all();
       $paiement=new Paiement($pai);
-      $commande= new Commande();
 
-      if(Auth::check()) {
-          if (Auth::user()->role == 2) {
+      $idClient=Client::where('mail',"=",Auth::user()->email)->first()->id;
 
-              $commande->client=Client::where('mail',"=",Auth::user()->email)->first()->id;
-          }
-      }
-        $paiement->commande=$commande;
-          $paiement->save();
+      $commande=Commande::where('Client','=',$idClient)->first(['reference']);
+
+      $paiement->commande=filter_var($commande,FILTER_SANITIZE_NUMBER_INT);
+      $paiement->num_transaction=000;
+      $paiement->save();
+    redirect('produit');
   }
 
   /**

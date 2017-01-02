@@ -8,7 +8,7 @@ class Paiement extends Model {
 
 	protected $table = 'Paiement';
 	public $timestamps = true;
-	protected $fillable=['num_transaction'];
+	protected $fillable=['num_transaction','methode'];
 
 	public function lier()
 	{

@@ -44,6 +44,7 @@ class CommandeController extends Controller {
 
         ])->get();
         $this->update_somme($request);
+
         return view('commande.index')->with("commande",$commande);
 
 
@@ -128,19 +129,20 @@ class CommandeController extends Controller {
               if (Auth::user()->role == 2) {
                   $commande->client=Client::where('mail',"=",Auth::user()->email)->first()->id;
               }else{
-
-                  $commande->client= filter_var($request->session()->getId(),FILTER_SANITIZE_NUMBER_INT);
+                    return redirect('login');
+                  //$commande->client= filter_var($request->session()->getId(),FILTER_SANITIZE_NUMBER_INT);
               }
           }else{
+              return redirect('login');
 
-              $commande->client= filter_var($request->session()->getId(),FILTER_SANITIZE_NUMBER_INT);
+              //$commande->client= filter_var($request->session()->getId(),FILTER_SANITIZE_NUMBER_INT);
 
           }
           $commande->total=$p->prix;
           $commande->tva=18;
           $commande->remise=0;
-          $commande->reference=$request->session()->getId();
-          $commande->Produit=$id;
+          $commande->reference=filter_var($request->session()->getId(),FILTER_SANITIZE_NUMBER_INT);
+      $commande->Produit=$id;
           $commande->save();
          $s= $this->update_somme($request);
          //dd($s);
@@ -156,7 +158,9 @@ class CommandeController extends Controller {
         if(Auth::check()){
             if(Auth::user()->role==2)
             {
-                $commande=Commande::where("client","=",Client::where('mail','=',Auth::user()->email)->first()->id)->get(['total']);
+               // $commande=Commande::where("client","=",Client::where('mail','=',Auth::user()->email)->first()->id)->get(['total']);
+                $commande=Commande::where("reference","=",filter_var($request->session()->getId(),FILTER_SANITIZE_NUMBER_INT))->get(['total']);
+
                 Session::put('somme',$commande->sum('total'));
                 return $commande->sum('total');
 

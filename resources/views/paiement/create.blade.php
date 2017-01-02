@@ -1,10 +1,12 @@
-
 {!! Form::open(array('route' => 'paiement.store', 'method' => 'POST')) !!}
 <ul>
 
     <li>
-        {!! Form::label('num_transaction', 'num_transaction:') !!}
-        {!! Form::text('num_transaction') !!}
+        <select name="methode">
+            @foreach(\App\Methode_paiment::all()  as $m)
+            <option value="{{ $m->id }}"> {{ $m->nom }}</option>
+            @endforeach
+        </select>
     </li>
 
     <li>
