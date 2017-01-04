@@ -31,9 +31,11 @@ Route::resource('boutique_livraison', 'Boutique_livraisonController');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/boutique/produits/{id}','ProduitController@liste_par_boutique');
 Route::get('/categorie/produits/{id}','ProduitController@liste_par_categorie');
 Route::post('/commande/produits/{id}','CommandeController@ajout_panier')->name('ajouter');
-Route::post('/search/{id}','ProduitController@search')->name('search');
+Route::post('/search','ProduitController@search')->name('search');
+Route::get('/inscrire','InscrireController@inscrire')->name('inscrire');
+
 

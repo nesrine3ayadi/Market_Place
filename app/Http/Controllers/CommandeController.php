@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Client;
 use App\Produit;
 use App\Commande;
+use App\Vendeur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -31,6 +32,15 @@ class CommandeController extends Controller {
             $this->update_somme($request);
             return view('commande.index')->with("commande",$commande);
 
+
+
+        }else{
+            $commande=Commande::where([
+                ['type','=','panier'],
+                ['client','=',Vendeur::where('mail',"=",Auth::user()->email)->first()->id]
+            ])->get();
+            $this->update_somme($request);
+            return view('commande.index')->with("commande",$commande);
 
 
         }
@@ -129,7 +139,8 @@ class CommandeController extends Controller {
               if (Auth::user()->role == 2) {
                   $commande->client=Client::where('mail',"=",Auth::user()->email)->first()->id;
               }else{
-                    return redirect('login');
+                  $commande->client=Vendeur::where('mail',"=",Auth::user()->email)->first()->id;
+
                   //$commande->client= filter_var($request->session()->getId(),FILTER_SANITIZE_NUMBER_INT);
               }
           }else{

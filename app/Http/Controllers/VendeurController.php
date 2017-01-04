@@ -49,6 +49,7 @@ class VendeurController extends Controller {
   {
       $v= $request->all();
       $vendeur = new Vendeur($v);
+      $vendeur->boutique=0;
       //   dd($client);
 
       User::create([
@@ -60,7 +61,7 @@ class VendeurController extends Controller {
       $vendeur->save();
 
 
-      return redirect('vendeur');
+      return redirect('welcome');
 
   }
 
