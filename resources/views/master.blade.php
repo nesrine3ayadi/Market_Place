@@ -33,6 +33,19 @@
                 </ul>
             @endif
             </li>
+
+            <li>  <a href="{{ route('commande.index') }}"><i class="large material-icons ">shopping_cart</i></a> </li>
+            <li>
+                {!! Form::open(array('route' => ['search'], 'method' => 'POST')) !!}
+
+                    <div class="input-field">
+                        <input name="search" id="search" type="search" placeholder="search" required>
+                        <label for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                {!! Form::close() !!}
+
+            </li>
             @if (Auth::guest())
                 <li><a href="{{ route('login') }}">CONNECTER</a></li>
                 <li><a href="{{ route('inscrire') }}">INSCRIRE</a></li>
@@ -43,6 +56,19 @@
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
+                        @if (Auth::user()->role==1)
+                            <?php  $v = \App\Vendeur::where('mail', '=', Auth::user()->email)->first();
+                            ?>
+                            <li><a href="{{ url('/vendeur/'.$v->id.'/edit') }}"> Mon Profile</a></li>
+                        @else
+                            <?php  $c = \App\Client::where('mail', '=', Auth::user()->email)->first();
+                            ?>
+                            <li><a href="{{ url('/client/'.$c->id.'/edit') }}"> Mon profile</a></li>
+
+
+
+                        @endif
+
                         <li>
                             <a href="{{ url('/logout') }}"
                                onclick="event.preventDefault();
@@ -57,19 +83,6 @@
                     </ul>
                 </li>
             @endif
-            <li>  <a href="{{ route('commande.index') }}"><i class="large material-icons ">shopping_cart</i></a> </li>
-            <li>
-                {!! Form::open(array('route' => ['search'], 'method' => 'POST')) !!}
-
-                    <div class="input-field">
-                        <input name="search" id="search" type="search" placeholder="search" required>
-                        <label for="search"><i class="material-icons">search</i></label>
-                        <i class="material-icons">close</i>
-                    </div>
-                {!! Form::close() !!}
-
-            </li>
-
         </ul>
     </div>
 </nav>
