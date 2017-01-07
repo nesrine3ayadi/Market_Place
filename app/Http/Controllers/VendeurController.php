@@ -61,7 +61,7 @@ class VendeurController extends Controller {
       $vendeur->save();
 
 
-      return redirect('welcome');
+      return redirect('home');
 
   }
 

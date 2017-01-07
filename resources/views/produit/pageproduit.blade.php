@@ -14,8 +14,14 @@
      Categorie :{{ \App\Categorie::findOrFail($produit->categori)->nom }}<br>
 
      Evaluation :{{ $produit->evaluation }}<br>
-     Boutique : {{ \App\Boutique::findOrFail($produit->boutique)->nom }}<br>
+
+     {!! Form::open(array('route' => ['boutiqueProduit',$produit->id], 'method' => 'POST','id'=>'liste_par_boutique')) !!}
+
+           Boutique : <a href="{{ url('boutique/produits/'.\App\Boutique::findOrfail($produit->boutique)->id)  }}"> {{ \App\Boutique::findOrFail($produit->boutique)->nom }}<br> </a>
      <br>
+     {{ Form::token() }}
+     {!! Form::close() !!}
+
      {!! Form::open(array('route' => ['ajouter',$produit->id], 'method' => 'POST','id'=>'ajout_panier')) !!}
      <button  class="btn-flat" role="submit" type="submit" name="submit">Ajouter Panier</button>
 

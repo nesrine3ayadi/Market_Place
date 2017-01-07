@@ -1,11 +1,5 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: SONY
- * Date: 22/12/2016
- * Time: 13:16
- */
-?>
+@extends('master')
+@section('content')
 
 {!! Form::open(array('route' =>['vendeur.update',$vendeurs->id ] , 'method' => 'PATCH','autocomplete'=>'off')) !!}
 
@@ -77,3 +71,4 @@
 <input id="submit" type="submit" class="form-control" name="submit" required value="Suppirmer Compte">
 
 {!! Form::close() !!}
+    @endsection

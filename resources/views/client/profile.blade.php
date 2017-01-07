@@ -1,8 +1,10 @@
 <?php
 
 ?>
+@extends('master')
 
-{!! Form::open(array('route' =>['client.update',$u->id ] , 'method' => 'PATCH','autocomplete'=>'off')) !!}
+@section('content')
+{!! Form::open(array('route' =>['client.update',$clients->id ] , 'method' => 'PATCH','autocomplete'=>'off')) !!}
 
     <label>Nom :</label>
 <input id="nom" type="text" class="form-control" name="nom" required placeholder="{{ $clients->Nom }}" value="{{ $clients->Nom }}">
@@ -20,17 +22,17 @@
     <input id="ville" type="text" class="form-control" name="ville" required placeholder="{{ $clients->ville }}" value="{{ $clients->ville }}">
 
     <label>Sexe :</label>
-<label>Homme :</label>
+
 <input id="sexe" type="radio" class="form-control" name="sexe" required  @if($clients->sexe=='Homme') {{ "checked" }}@endif value="Homme">
-<label>Femme :</label>
+<label>Homme </label>
+
 
 <input id="sexe" type="radio" class="form-control" name="sexe" required @if($clients->sexe=='Femme') {{ "checked" }}@endif value="Femme">
+<label>Femme </label>
 
 
-    <label>Mail :</label>
     <input id="mail" type="text" class="form-control" name="mail"  required placeholder="{{ $u->email }}" value="{{ $u->email }}" autocomplete="off" autofill="off" >
 
-    <label>Password :</label>
 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
     <label for="password" class="col-md-4 control-label">Password</label>
 
@@ -61,4 +63,4 @@
 
 {!! Form::close() !!}
 
-
+@endsection

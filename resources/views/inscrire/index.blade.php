@@ -124,7 +124,8 @@ use App\Vendeur;
                 <option value="Femme">Femme </option>
             </select>
         </div>
-    <div class="input-field">
+
+        <div class="input-field">
 
         {!! Form::text('adresse') !!}
         {!! Form::label('adresse', 'Adresse') !!}

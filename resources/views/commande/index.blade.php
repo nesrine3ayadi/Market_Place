@@ -7,8 +7,8 @@
         <th><h2>Effacer Commande:</h2></th>
 
     </tr>
-
-@foreach($commande as $c)
+@if (!empty($commande))
+    @foreach($commande as $c)
 
 
 
@@ -16,11 +16,14 @@
             <td>{{\App\Produit::findOrFail($c->Produit)->nom}}</td>
             <td>{{ $c->total}}</td>
             {!! Form::open(array('route' =>['commande.destroy',$c->id ] , 'method' => 'DELETE','autocomplete'=>'off')) !!}
-                <td> <input type="submit" value="Effacer Commande"> </td>
+            <td> <input type="submit" value="Effacer Commande"> </td>
             {!! Form::close() !!}
 
         </tr>
-@endforeach
+    @endforeach
+    @else
+        Votre panier est vide
+    @endif
 
 </table>
 la somme : {{ session()->pull('somme') }}

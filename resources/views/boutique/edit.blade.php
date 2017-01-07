@@ -1,9 +1,7 @@
 <p>
     Votre panier : {{ session('somme') }}
 </p>
-<?php
 
-?>
 {!! Form::open(array('route' =>['boutique.update',$boutique->id ] , 'method' => 'PATCH','autocomplete'=>'off')) !!}
 
 <label>Nom Boutique:</label>

@@ -19,20 +19,50 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="{{ route('home') }}">HOME</a></li>
             <li><a href="{{ route('categorie.index') }}">CATEGORIES</a></li>
-            <li class="dropdown"><a href="{{ route('produit.index') }}">PRODUITS</a>
 
-            @if (Auth::user()->role==1)
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="{{ url('/produit/create') }}">
-                            Ajouter un produit
-                        </a>
+            <li> <a class="dropdown-button" href="#!" data-activates="dropdown2"> Boutique</a>    </li>
 
-                    </li>
 
-                </ul>
+
+            <ul id="dropdown2" class="dropdown-content">
+                <li> <a href="{{ route('boutique.index') }}" >les boutiques </a></li>
+
+                @if(Auth::check())
+                    @if (Auth::user()->role==1)
+                        <li>
+                            <?php  $v = \App\Vendeur::where('mail', '=', Auth::user()->email)->first();
+                            ?>
+                                <a href="{{ url('/boutique/'.$v->boutique.'/edit') }}">
+                                    Ma Boutique
+                            </a>
+
+                        </li><br>
+                        <li>
+                            <a href="boutique/create">Cree une boutique</a>
+                        </li>
+                    @endif
+                @endif
+            </ul>
+
+
+
+                    <ul id="dropdown3" class="dropdown-content">
+                        <li> <a href="{{ route('produit.index') }}"> </a> </li>
+                        @if(Auth::check())
+                            @if (Auth::user()->role==1)
+                        <li>
+                            <a href="{{ url('/produit/create') }}">
+                                Ajouter un produit
+                            </a>
+
+                        </li>
+
+                    </ul>
+                @endif
             @endif
-            </li>
+            <li class="dropdown"> <a class="dropdown-button" href="#!" data-activates="dropdown3">PRODUITS</a>   </li>
+
+
 
             <li>  <a href="{{ route('commande.index') }}"><i class="large material-icons ">shopping_cart</i></a> </li>
             <li>
@@ -50,38 +80,42 @@
                 <li><a href="{{ route('login') }}">CONNECTER</a></li>
                 <li><a href="{{ route('inscrire') }}">INSCRIRE</a></li>
             @else
+                <ul id="dropdown1" class="dropdown-content">
+                    @if (Auth::user()->role==1)
+                        <?php  $v = \App\Vendeur::where('mail', '=', Auth::user()->email)->first();
+                        ?>
+                        <li><a href="{{ url('/vendeur/'.$v->id.'/edit') }}"> Mon Profile</a></li><br>
+                    @else
+                        <?php  $c = \App\Client::where('mail', '=', Auth::user()->email)->first();
+                        ?>
+                        <li><a href="{{ url('/client/'.$c->id.'/edit') }}"> Mon profile</a></li>
+
+
+
+                    @endif
+
+                    <li>
+                        <a href="{{ url('/logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+
+                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
+                </ul>
+
+
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+
+                    <a class="dropdown-button" href="#!" data-activates="dropdown1">
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
-
-                    <ul class="dropdown-menu" role="menu">
-                        @if (Auth::user()->role==1)
-                            <?php  $v = \App\Vendeur::where('mail', '=', Auth::user()->email)->first();
-                            ?>
-                            <li><a href="{{ url('/vendeur/'.$v->id.'/edit') }}"> Mon Profile</a></li>
-                        @else
-                            <?php  $c = \App\Client::where('mail', '=', Auth::user()->email)->first();
-                            ?>
-                            <li><a href="{{ url('/client/'.$c->id.'/edit') }}"> Mon profile</a></li>
-
-
-
-                        @endif
-
-                        <li>
-                            <a href="{{ url('/logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
-
-                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
                 </li>
+
+
             @endif
         </ul>
     </div>

@@ -47,9 +47,11 @@ class CategorieController extends Controller {
   {
       $cat= $request->all();
       $categorie = new Categorie($cat);
-
+      $this->validate($request, [
+          'nom' => 'required|unique:categorie',
+      ]);
       $categorie->save();
-      return redirect('categorie');
+      return back();
 
 
   }

@@ -7,8 +7,27 @@ body {
 main {
     flex: 1 0 auto;
 }
-#home-img{
-    background: url("../images/ecommerce.jpg") no-repeat center center ;
+.login-form{
+    background: rgba(224, 224, 224, 0.61);
+    margin-top: 10%;
+    padding: 10%;
+    height: 70% !important;
+}
+nav .nav-wrapper{
+    background: #42cbd3 !important;
+}
+footer.page-footer{
+    background: #42cbd3 !important;
+    margin-top: 0px !important;
+
+}
+#bg-login{
+    background: url("../images/login.jpg");
+    height: 100%;
+
+}
+.home-img{
+    background: url("../images/home.jpg") no-repeat center center ;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
